@@ -63,7 +63,21 @@ pipeline{
         // Stage 5 : Publish the source code to Sonarqube
         stage ('Deploy'){
             steps {
-                echo ' deploying......'
+                echo 'Deploying...'
+                sshPublisher(publishers: 
+                [sshPublisherDesc(
+                    configName: 'AnsibleCN', 
+                    transfers: [
+                        sshTransfer(
+                            cleanRemote: false,
+                            execCommand: 'ansible-playbook /opt/playbooks/download_and_deploy.yml -i /opt/playbooks/hosts',
+                            execTimeout: 120000
+                        ) 
+                    ], 
+                    usePromotionTimestamp: false, 
+                    useWorkspaceInPromotion: false, 
+                    verbose: false)
+                    ])
                 }
 
         }
