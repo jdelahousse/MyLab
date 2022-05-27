@@ -8,6 +8,7 @@ pipeline{
         ArtifactId = readMavenPom().getArtifactId()
         Version = readMavenPom().getVersion()
         Name = readMavenPom().getName()
+        GroupId = readMavenPom().getGroupId()
     }
 
     stages {
@@ -51,6 +52,7 @@ pipeline{
                 echo "Artifact ID is '${ArtifactId}'"
                 echo "Version is '${Version}'"
                 echo "Name is '${Name}'"
+                echo "Group ID is '${GroupId}'"
             }
         }
         // Stage 5 : Publish the source code to Sonarqube
